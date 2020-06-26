@@ -59,7 +59,13 @@ async def finish(context): #создаем асинхронную фунцию �
     global room
     creator = context.author
 
-    if creator.id is not list(room.keys())[0]:
+    await context.message.delete()
+
+    if creator.id not in list(room.keys()):
+        return
+
+    isCreatorCan = [ True if r.name == 'Bunker admin' else False for r in creator.guild.roles]
+    if not any(isCreatorCan):
         return
 
     room = {}
@@ -72,12 +78,15 @@ async def finish(context): #создаем асинхронную фунцию �
 
     await message.add_reaction("😀")
     await message.add_reaction("☹️")
-    await context.message.delete()
 
 @bot.command(name='newcard', help='Сгенерировать карту для @пользователя.') 
 async def newcard(context, *args): #создаем асинхронную фунцию бота
     creator = context.author
-    if creator.id is not list(room.keys())[0]:
+    if creator.id not in list(room.keys()):
+        return
+
+    isCreatorCan = [ True if r.name == 'Bunker admin' else False for r in creator.guild.roles]
+    if not any(isCreatorCan):
         return
 
     for id_arg in args:
@@ -94,7 +103,11 @@ async def newcard(context, *args): #создаем асинхронную фун
 @bot.command(name='newprofession', help='Сгенерировать профессию для @пользователя.') 
 async def newprofession(context, *args): #создаем асинхронную фунцию бота
     creator = context.author
-    if creator.id is not list(room.keys())[0]:
+    if creator.id not in list(room.keys()):
+        return
+
+    isCreatorCan = [ True if r.name == 'Bunker admin' else False for r in creator.guild.roles]
+    if not any(isCreatorCan):
         return
 
     for id_arg in args:
@@ -108,10 +121,32 @@ async def newprofession(context, *args): #создаем асинхронную 
         await user.send(message)
     await context.message.delete()
 
+@bot.command(name='newprofessions', help='Сгенерировать профессию для всех.') 
+async def go(context):
+    creator = context.author
+    if creator.id not in list(room.keys()):
+        return
+    
+    isCreatorCan = [ True if r.name == 'Bunker admin' else False for r in creator.guild.roles]
+    if not any(isCreatorCan):
+        return
+
+    for user_id in room:
+        user = bot.get_user(user_id)
+        message = 'Вот твоя новая Профессия:\n'
+        message += randomize_profession()
+        await user.send(message)
+
+    await context.message.delete()
+
 @bot.command(name='newbagage', help='Сгенерировать багаж для @пользователя.') 
 async def newcard(context, *args): #создаем асинхронную фунцию бота
     creator = context.author
-    if creator.id is not list(room.keys())[0]:
+    if creator.id not in list(room.keys()):
+        return
+
+    isCreatorCan = [ True if r.name == 'Bunker admin' else False for r in creator.guild.roles]
+    if not any(isCreatorCan):
         return
 
     for id_arg in args:
@@ -128,7 +163,11 @@ async def newcard(context, *args): #создаем асинхронную фун
 @bot.command(name='newhealth', help='Сгенерировать состояние здоровья для @пользователя.') 
 async def newcard(context, *args): #создаем асинхронную фунцию бота
     creator = context.author
-    if creator.id is not list(room.keys())[0]:
+    if creator.id not in list(room.keys()):
+        return
+
+    isCreatorCan = [ True if r.name == 'Bunker admin' else False for r in creator.guild.roles]
+    if not any(isCreatorCan):
         return
 
     for id_arg in args:
@@ -146,7 +185,11 @@ async def newcard(context, *args): #создаем асинхронную фун
 @bot.command(name='newhobby', help='Сгенерировать хобби для @пользователя.') 
 async def newcard(context, *args): #создаем асинхронную фунцию бота
     creator = context.author
-    if creator.id is not list(room.keys())[0]:
+    if creator.id not in list(room.keys()):
+        return
+
+    isCreatorCan = [ True if r.name == 'Bunker admin' else False for r in creator.guild.roles]
+    if not any(isCreatorCan):
         return
 
     for id_arg in args:
@@ -161,10 +204,32 @@ async def newcard(context, *args): #создаем асинхронную фун
 
     await context.message.delete()
 
+@bot.command(name='newhobbies', help='Сгенерировать хобби для всех.') 
+async def newhobbies(context):
+    creator = context.author
+    if creator.id not in list(room.keys()):
+        return
+
+    isCreatorCan = [ True if r.name == 'Bunker admin' else False for r in creator.guild.roles]
+    if not any(isCreatorCan):
+        return
+
+    for user_id in room:
+        user = bot.get_user(user_id)
+        message = 'Вот твое новое Хобби:\n'
+        message += randomize_hobby()
+        await user.send(message)
+
+    await context.message.delete()
+
 @bot.command(name='newbio', help='Сгенерировать полроствес для @пользователя.') 
 async def newcard(context, *args): #создаем асинхронную фунцию бота
     creator = context.author
-    if creator.id is not list(room.keys())[0]:
+    if creator.id not in list(room.keys()):
+        return
+
+    isCreatorCan = [ True if r.name == 'Bunker admin' else False for r in creator.guild.roles]
+    if not any(isCreatorCan):
         return
 
     for id_arg in args:
@@ -178,6 +243,22 @@ async def newcard(context, *args): #создаем асинхронную фун
         await user.send(message)
 
     await context.message.delete()
+
+@bot.command(name='newapocalypse', help='Сгенерировать новую катастрофу.') 
+async def newapocalypse(context, *args): #создаем асинхронную фунцию бота
+    creator = context.author
+    
+    await context.message.delete()
+    
+    if creator.id not in list(room.keys()):
+        return
+
+    isCreatorCan = [ True if r.name == 'Bunker admin' else False for r in creator.guild.roles]
+    if not any(isCreatorCan):
+        return
+
+    apocalypse = randomize_apocalypse()
+    message = await context.send(apocalypse)
 
 @bot.event
 async def on_reaction_add(reaction, user):
