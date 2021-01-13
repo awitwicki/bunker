@@ -13,76 +13,101 @@ with open('db.json', "r", encoding="utf-8") as file:
     #     val = random.choice(values)
     #     print(f'{key} : {val}')
 
+
+
+# def randomize_bunker():
+#     string = ''
+#     area = random.choice(50, 300)
+#     food_water = random.choice(dictd["Еда и питье"].split('.'))
+#     area = random.choice(50, 300)
+#     need_time = random.choice(dictd["Время нахождения в убежище"].split('.'))
+    
+#     key = 'Карты'
+#     val = random.choice(dictd[key].split('.'))
+#     string = string + f'{key}: {val}\n'
+#     # print(string)
+#     return string
 def randomize_profile():
-    string = ''
-    keys = list(dictd.keys())
-
-    sex = random.choice(dictd['Пол'].split('.'))
-    age = random.choice(dictd['Возраст'].split('.'))
-    plod = random.choice(dictd['Плодовитость'].split('.'))
-    string = f'Пол: {sex}, Возраст : {age}, Плодовитость : {plod}.\n'
-
-    for key in keys[4:]:
-        values = dictd[key].split('.')
-        val = random.choice(values)
-        if key == list(dictd.keys())[-1]:
-            val2 = random.choice(values)
-            string = string + f'{key}: {val2}\n'
-        string = string + f'{key}: {val}\n'
-    # print(string)
+    string = 'Вот твои хараеткристики:\n'
+    string += randomize_profession()
+    string += randomize_bio()
+    string += randomize_health()
+    string += randomize_mind()
+    string += randomize_hobby()
+    string += randomize_phobies()
+    string += randomize_bagage()
+    string += randomize_skill()
+    string += randomize_card()
+    string += randomize_card()
+    
     return string
 
-
 def randomize_card():
-    string = ''
-    key = 'Карты'
-    val = random.choice(dictd[key].split('.'))
-    string = string + f'{key}: {val}\n'
-    # print(string)
+    key = 'ACTIONCARDS'
+    items = dictd[key]
+    val = random.choice(items)
+    string =f'Карта действия: {val}\n'
     return string
 
 def randomize_profession():
-    string = ''
-    key = 'Профессия'
-    val = random.choice(dictd[key].split('.'))
-    string = string + f'{key}: {val}\n'
-    # print(string)
+    key = 'PROF'
+    items = dictd[key]
+    val = random.choice(items)
+    string = f'Профессия: {val}\n'
     return string
 
 def randomize_bagage():
-    string = ''
-    key = 'Багаж'
-    val = random.choice(dictd[key].split('.'))
-    string = string + f'{key}: {val}\n'
-    # print(string)
+    key = 'INV'
+    items = dictd[key]
+    val = random.choice(items)
+    string = f'Багаж: {val}\n'
     return string
 
 def randomize_health():
-    string = ''
-    key = 'Состояние здоровья'
-    val = random.choice(dictd[key].split('.'))
-    string = string + f'{key}: {val}\n'
-    # print(string)
+    key = 'HEALTH'
+    items = dictd[key]
+    val = random.choice(items)
+    string = f'Здоровье: {val}\n'
+    return string
+
+def randomize_mind():
+    key = 'CHARACTER'
+    items = dictd[key]
+    val = random.choice(items)
+    string = f'Характер: {val}\n'
     return string
 
 def randomize_hobby():
-    string = ''
-    key = 'Хобби'
-    val = random.choice(dictd[key].split('.'))
-    string = string + f'{key}: {val}\n'
-    # print(string)
+    key = 'HOBBIES'
+    items = dictd[key]
+    val = random.choice(items)
+    string = f'Хобби: {val}\n'
+    return string
+
+def randomize_phobies():
+    key = 'PHOBIES'
+    items = dictd[key]
+    val = random.choice(items)
+    string = f'Фобия: {val}\n'
+    return string
+
+def randomize_skill():
+    key = 'SKILLS'
+    items = dictd[key]
+    val = random.choice(items)
+    string = f'Умение: {val}\n'
     return string
 
 def randomize_bio():
-    string = ''
-    sex = random.choice(dictd['Пол'].split('.'))
-    age = random.choice(dictd['Возраст'].split('.'))
-    plod = random.choice(dictd['Плодовитость'].split('.'))
+    PLAYERINFO = dictd['PLAYERINFO']
+    sex = random.choice(PLAYERINFO['GENDER'])
+    age = random.choice(PLAYERINFO['AGE'])
+    plod = random.choice(PLAYERINFO['SEX'])
     string = f'Пол: {sex}, Возраст : {age}, Плодовитость : {plod}.\n'
     return string
 
 def randomize_apocalypse():
-    string = random.choice(dictd['Катастрофа'].split(';'))
+    string = random.choice(dictd['APOCALYPSES'])
     return string
 
 def create_profiles(count):
@@ -92,4 +117,10 @@ def create_profiles(count):
 
     return profiles
 
-# randomize_profile()
+
+# test
+# new = randomize_apocalypse()
+# print(new + '\n')
+
+# new = randomize_profile()
+# print(new)
