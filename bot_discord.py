@@ -87,8 +87,7 @@ async def go(context):
 
     for user_id in room:
         user = await bot.fetch_user(user_id)
-        message = 'Вот твои хараеткристики:\n' \
-                  f'{randomize_profile()}'
+        message = randomize_profile()
         await user.send(message)
     await context.message.delete()
 
