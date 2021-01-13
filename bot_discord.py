@@ -3,7 +3,7 @@ import traceback
 
 from discord.ext import commands
 
-from config import TOKEN
+from config import TOKEN, GENERAL_TEXT_CHANNEL_ID
 from generator import *
 from utils import is_author_game_creator, is_author_bunker_admin, filter_players_not_in_room, \
     convert_mentions_to_user_ids
@@ -12,8 +12,6 @@ bot = commands.Bot(command_prefix='!')  # инициализируем бота 
 
 room = {}
 
-general_text_channel_id = 798563385927139381
-
 
 # # # Info
 
@@ -21,28 +19,28 @@ general_text_channel_id = 798563385927139381
 @bot.event
 async def on_connect():
     msg = f'{bot.user.name} has connected!'
-    await bot.get_channel(general_text_channel_id).send(msg)
+    await bot.get_channel(GENERAL_TEXT_CHANNEL_ID).send(msg)
     print(msg)
 
 
 @bot.event
 async def on_ready():
     msg = f'{bot.user.name} is ready!'
-    await bot.get_channel(general_text_channel_id).send(msg)
+    await bot.get_channel(GENERAL_TEXT_CHANNEL_ID).send(msg)
     print(msg)
 
 
 @bot.event
 async def on_resume():
     msg = f'{bot.user.name} was resumed!'
-    await bot.get_channel(general_text_channel_id).send(msg)
+    await bot.get_channel(GENERAL_TEXT_CHANNEL_ID).send(msg)
     print(msg)
 
 
 @bot.event
 async def on_disconnect():
     msg = f'{bot.user.name} has disconnected!'
-    await bot.get_channel(general_text_channel_id).send(msg)
+    await bot.get_channel(GENERAL_TEXT_CHANNEL_ID).send(msg)
     print(msg)
 
 
@@ -56,7 +54,7 @@ async def on_error(event, *args, **kwargs):
           f'and kwargs {kwargs} ' \
           f':\n' \
           f'{exception_str}'
-    await bot.get_channel(general_text_channel_id).send(msg)
+    await bot.get_channel(GENERAL_TEXT_CHANNEL_ID).send(msg)
     print(msg)
 
     with open('err.log', 'a') as f:
